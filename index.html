@@ -19,7 +19,6 @@
     font-size: 3em;
     color: red;
     font-weight: bold;
-    text-align: center;
     margin-top: 20px;
     animation: pulseAnimation 1.5s infinite;
   }
@@ -100,23 +99,21 @@ function updateAge() {
     document.getElementById('ageCounter').textContent = 
         `Meghna, You are ${years} years ${months} months ${days} days ${hours} hours ${minutes} minutes ${seconds} seconds ❤️`;
 }
-
 setInterval(updateAge, 1000);
 updateAge();
 </script>
 
-<!-- Background piano song -->
+<!-- Background slow piano "Happy Birthday" -->
 <audio id="bgMusic" autoplay loop>
-  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  <source src="https://cdn.jsdelivr.net/gh/itsgreeshma/happy-birthday-piano/happybirthday.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio>
 
 <script>
-  // For browsers that block autoplay, play on first click
-  document.body.addEventListener('click', function() {
-    const audio = document.getElementById('bgMusic');
-    if (audio.paused) audio.play();
-  });
+document.body.addEventListener('click', function() {
+  const audio = document.getElementById('bgMusic');
+  if (audio.paused) audio.play();
+});
 </script>
 
 </body>
