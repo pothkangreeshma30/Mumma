@@ -112,17 +112,18 @@ setInterval(updateAge, 1000);
 updateAge();
 </script>
 
-<!-- Background slow piano "Happy Birthday" -->
+<!-- Background piano Happy Birthday song -->
 <audio id="bgMusic" autoplay loop>
   <source src="https://cdn.jsdelivr.net/gh/itsgreeshma/happy-birthday-piano/happybirthday.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio>
 
 <script>
-document.body.addEventListener('click', function() {
-  const audio = document.getElementById('bgMusic');
-  if (audio.paused) audio.play();
-});
+  // Some browsers require user interaction for autoplay
+  document.body.addEventListener('click', function() {
+    const audio = document.getElementById('bgMusic');
+    if (audio.paused) audio.play();
+  });
 </script>
 
 </body>
