@@ -8,22 +8,21 @@
         background-color: black;
         margin: 0;
         overflow: hidden;
-        position: relative;
         height: 100vh;
+        position: relative;
         font-family: Arial, sans-serif;
     }
 
-    /* Center Text */
     h1 {
         color: gold;
-        font-size: 50px;
+        font-size: 48px;
         text-align: center;
-        margin-top: 100px;
-        z-index: 10;
+        margin-top: 120px;
         position: relative;
+        z-index: 10;
     }
 
-    /* Falling Emojis */
+    /* Falling emojis */
     .emoji {
         position: absolute;
         top: -50px;
@@ -35,22 +34,22 @@
         to { transform: translateY(110vh); }
     }
 
-    /* Random popup message */
+    /* Popup messages */
     .popup {
         position: absolute;
-        color: #ffccff;
-        background: rgba(255, 255, 255, 0.2);
-        padding: 10px 20px;
-        border-radius: 10px;
+        color: #ffd6ff;
+        background: rgba(255, 255, 255, 0.15);
+        padding: 12px 22px;
+        border-radius: 12px;
         font-size: 20px;
-        backdrop-filter: blur(5px);
         animation: fadeOut 5s forwards;
+        backdrop-filter: blur(4px);
     }
 
     @keyframes fadeOut {
         0% { opacity: 1; transform: scale(1); }
-        80% { opacity: 1; }
-        100% { opacity: 0; transform: scale(0.7); }
+        90% { opacity: 1; }
+        100% { opacity: 0; transform: scale(0.6); }
     }
 </style>
 </head>
@@ -74,13 +73,13 @@ function createEmoji() {
 }
 setInterval(createEmoji, 300);
 
-// RANDOM POPUP MESSAGES
+// Popup Messages
 const msgs = [
     "Love your Smile 💖",
-    "You're the Best! 🌸",
+    "You're the Best 🌸",
     "My World 💕",
     "Your Laugh is Magic ✨",
-    "Cutest Person Ever 🦋",
+    "Cutest Ever 🦋",
     "Stay Happy Always 💛",
     "My Heart ❤️",
     "You Shine Bright 🌟"
@@ -91,7 +90,6 @@ function showMessage() {
     msg.classList.add("popup");
     msg.innerText = msgs[Math.floor(Math.random() * msgs.length)];
 
-    // Random position
     msg.style.left = Math.random() * 70 + "vw";
     msg.style.top = Math.random() * 70 + "vh";
 
@@ -100,7 +98,6 @@ function showMessage() {
     setTimeout(() => msg.remove(), 5000);
 }
 
-// show a new message every 2 seconds
 setInterval(showMessage, 2000);
 </script>
 
