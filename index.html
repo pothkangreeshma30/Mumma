@@ -3,126 +3,85 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday Mummaaaa ❤️</title>
+<title>Happy Birthday Mumma ❤️</title>
+
 <style>
-  html, body {
+  body {
     margin: 0;
     padding: 0;
-    height: 100%;
     background: #fff0f5;
-    overflow: hidden;
     font-family: Arial, sans-serif;
-  }
-
-  /* Centered container */
-  .centered {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    overflow: hidden;
     text-align: center;
   }
 
-  .pulse {
-    font-size: 3em;
-    color: red;
+  h1 {
+    margin-top: 40px;
+    font-size: 40px;
+    color: #d1005d;
+    text-shadow: 1px 1px 3px #00000060;
+  }
+
+  /* Floating Message Style */
+  .floatMsg {
+    position: absolute;
+    font-size: 22px;
     font-weight: bold;
-    animation: pulseAnimation 1.5s infinite;
-  }
-
-  @keyframes pulseAnimation {
-    0% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.2); opacity: 0.7; }
-    100% { transform: scale(1); opacity: 1; }
-  }
-
-  #ageCounter {
-    font-size: 1.5em;
-    color: #333;
-    margin-top: 20px;
-  }
-
-  /* Falling emojis */
-  .falling {
-    position: fixed;
-    top: -50px;
-    font-size: 24px;
-    animation-name: fall;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    pointer-events: none;
-  }
-
-  @keyframes fall {
-    0% { transform: translateY(-50px) rotate(0deg); }
-    100% { transform: translateY(110vh) rotate(360deg); }
+    color: #ff0066;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    text-shadow: 1px 1px 3px #00000050;
   }
 </style>
+
 </head>
 <body>
 
-<div class="centered">
-  <div class="pulse">Happy Birthday Mummaaaa ❤️</div>
-  <div id="ageCounter"></div>
-</div>
+<h1>Happy Birthday Mumma ❤️</h1>
 
-<!-- Falling emojis -->
 <script>
-const symbols = ["❤️","💖","💗","🩷","💐","🎉","🌹"];
-function createSymbol() {
-  const sym = document.createElement('div');
-  sym.className = 'falling';
-  sym.style.left = Math.random() * window.innerWidth + 'px';
-  sym.style.fontSize = (20 + Math.random() * 30) + 'px';
-  sym.style.animationDuration = (5 + Math.random() * 5) + 's';
-  sym.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-  document.body.appendChild(sym);
-  setTimeout(() => sym.remove(), 10000);
-}
-setInterval(createSymbol, 150);
-</script>
+  // Array of lovely messages
+  const messages = [
+    "Love your smile ❤️",
+    "You are the strongest!",
+    "My world begins with you 🌍",
+    "You deserve all happiness 💫",
+    "You are my inspiration 💖",
+    "Your kindness is magic ✨",
+    "You make life beautiful 🌸",
+    "Forever my favourite person ❤️",
+    "Your heart is pure gold 💛",
+    "Love you more than words 💕"
+  ];
 
-<!-- Accurate age counter -->
-<script>
-function updateAge() {
-  const birthDate = new Date("1982-11-29T00:00:00");
-  const now = new Date();
+  function showRandomMessage() {
+    const msg = document.createElement("div");
+    msg.className = "floatMsg";
 
-  let years = now.getFullYear() - birthDate.getFullYear();
-  let months = now.getMonth() - birthDate.getMonth();
-  let days = now.getDate() - birthDate.getDate();
-  let hours = now.getHours() - birthDate.getHours();
-  let minutes = now.getMinutes() - birthDate.getMinutes();
-  let seconds = now.getSeconds() - birthDate.getSeconds();
+    // Pick random message
+    msg.textContent = messages[Math.floor(Math.random() * messages.length)];
 
-  if (seconds < 0) { seconds += 60; minutes--; }
-  if (minutes < 0) { minutes += 60; hours--; }
-  if (hours < 0) { hours += 24; days--; }
-  if (days < 0) {
-      const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
-      days += prevMonth.getDate();
-      months--;
+    // Random placement
+    msg.style.left = Math.random() * (window.innerWidth - 200) + "px";
+    msg.style.top = Math.random() * (window.innerHeight - 150) + "px";
+
+    document.body.appendChild(msg);
+
+    // Fade in
+    setTimeout(() => {
+      msg.style.opacity = 1;
+    }, 100);
+
+    // Fade out + remove
+    setTimeout(() => {
+      msg.style.opacity = 0;
+      setTimeout(() => msg.remove(), 1000);
+    }, 5000);
   }
-  if (months < 0) { months += 12; years--; }
 
-  document.getElementById('ageCounter').textContent = 
-      `Meghna, You are ${years} years ${months} months ${days} days ${hours} hours ${minutes} minutes ${seconds} seconds ❤️`;
-}
-setInterval(updateAge, 1000);
-updateAge();
-</script>
+  // Create a message every 2–4 seconds
+  setInterval(showRandomMessage, 2000 + Math.random() * 2000);
 
-<!-- Background slow piano "Happy Birthday" -->
-<audio id="bgMusic" autoplay loop>
-  <source src="https://cdn.jsdelivr.net/gh/itsgreeshma/happy-birthday-piano/happybirthday.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
-</audio>
-
-<script>
-document.body.addEventListener('click', function() {
-  const audio = document.getElementById('bgMusic');
-  if (audio.paused) audio.play();
-});
 </script>
 
 </body>
