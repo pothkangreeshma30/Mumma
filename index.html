@@ -5,16 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Happy Birthday Mummaaaa ❤️</title>
 <style>
-  html, body {
+  body, html {
     margin: 0;
     padding: 0;
     height: 100%;
-    background: #fff0f5;
     overflow: hidden;
     font-family: Arial, sans-serif;
+    background: #000;
+    color: white;
   }
 
-  /* Centered container */
+  /* Fullscreen video background */
+  .video-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none; /* so clicks go through */
+  }
+
+  /* Centered birthday text */
   .centered {
     position: absolute;
     top: 50%;
@@ -23,20 +35,25 @@
     text-align: center;
   }
 
-  .pulseText {
+  .pulse-text {
     font-size: 3em;
     color: red;
     font-weight: bold;
-    margin-bottom: 20px;
+    animation: pulseAnimation 1s infinite;
+  }
+
+  @keyframes pulseAnimation {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 1; }
   }
 
   #ageCounter {
     font-size: 1.5em;
-    color: #333;
-    margin-bottom: 20px;
+    margin-top: 20px;
   }
 
-  /* Falling emojis */
+  /* Falling hearts/emojis */
   .falling {
     position: fixed;
     top: -50px;
@@ -51,41 +68,17 @@
     0% { transform: translateY(-50px) rotate(0deg); }
     100% { transform: translateY(110vh) rotate(360deg); }
   }
-
-  /* Heartbeat line */
-  .heartbeat {
-    width: 300px;
-    height: 20px;
-    margin: 0 auto;
-    position: relative;
-    background: #333;
-  }
-
-  .heartbeat::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: repeating-linear-gradient(
-      to right,
-      transparent 0 2px,
-      red 2px 4px
-    );
-    animation: heartbeatAnim 1s linear infinite;
-  }
-
-  @keyframes heartbeatAnim {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
-  }
 </style>
 </head>
 <body>
 
+<!-- YouTube heartbeat-style background video -->
+<iframe class="video-bg" src="https://www.youtube.com/embed/b_htXQwXwPM?autoplay=1&loop=1&playlist=b_htXQwXwPM&controls=0&mute=1"
+frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
 <div class="centered">
-  <div class="pulseText">Happy Birthday Mummaaaa ❤️</div>
+  <div class="pulse-text">Happy Birthday Mummaaaa ❤️</div>
   <div id="ageCounter"></div>
-  <div class="heartbeat"></div>
 </div>
 
 <!-- Falling emojis -->
@@ -107,45 +100,31 @@ setInterval(createSymbol, 150);
 <!-- Accurate age counter -->
 <script>
 function updateAge() {
-  const birthDate = new Date("1982-11-29T00:00:00");
-  const now = new Date();
+    const birthDate = new Date("1982-11-29T00:00:00");
+    const now = new Date();
 
-  let years = now.getFullYear() - birthDate.getFullYear();
-  let months = now.getMonth() - birthDate.getMonth();
-  let days = now.getDate() - birthDate.getDate();
-  let hours = now.getHours() - birthDate.getHours();
-  let minutes = now.getMinutes() - birthDate.getMinutes();
-  let seconds = now.getSeconds() - birthDate.getSeconds();
+    let years = now.getFullYear() - birthDate.getFullYear();
+    let months = now.getMonth() - birthDate.getMonth();
+    let days = now.getDate() - birthDate.getDate();
+    let hours = now.getHours() - birthDate.getHours();
+    let minutes = now.getMinutes() - birthDate.getMinutes();
+    let seconds = now.getSeconds() - birthDate.getSeconds();
 
-  if (seconds < 0) { seconds += 60; minutes--; }
-  if (minutes < 0) { minutes += 60; hours--; }
-  if (hours < 0) { hours += 24; days--; }
-  if (days < 0) {
-      const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
-      days += prevMonth.getDate();
-      months--;
-  }
-  if (months < 0) { months += 12; years--; }
+    if (seconds < 0) { seconds += 60; minutes--; }
+    if (minutes < 0) { minutes += 60; hours--; }
+    if (hours < 0) { hours += 24; days--; }
+    if (days < 0) {
+        const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+        days += prevMonth.getDate();
+        months--;
+    }
+    if (months < 0) { months += 12; years--; }
 
-  document.getElementById('ageCounter').textContent = 
-      `Meghna, You are ${years} years ${months} months ${days} days ${hours} hours ${minutes} minutes ${seconds} seconds ❤️`;
+    document.getElementById('ageCounter').textContent = 
+        `Meghna, You are ${years} years ${months} months ${days} days ${hours} hours ${minutes} minutes ${seconds} seconds ❤️`;
 }
 setInterval(updateAge, 1000);
 updateAge();
-</script>
-
-<!-- Background piano Happy Birthday -->
-<audio id="bgMusic" loop>
-  <source src="happybirthday.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
-</audio>
-
-<!-- Click anywhere to start audio -->
-<script>
-document.body.addEventListener('click', function() {
-  const audio = document.getElementById('bgMusic');
-  if (audio.paused) audio.play();
-});
 </script>
 
 </body>
