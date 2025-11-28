@@ -1,67 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy Birthday</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Mummaaaa ❤️</title>
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: #fff0f5;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+  }
 
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background: url('bg.jpg') no-repeat center center/cover;
-      text-align: center;
-      font-family: Arial, sans-serif;
-      overflow: hidden;
-    }
+  /* Centered container */
+  .centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
 
-    h1 {
-      margin-top: 50px;
-      font-size: 40px;
-      color: #fff;
-      text-shadow: 2px 2px 5px black;
-    }
+  .pulse {
+    font-size: 3em;
+    color: red;
+    font-weight: bold;
+    animation: pulseAnimation 1.5s infinite;
+  }
 
-    #cake {
-      width: 250px;
-      margin-top: 30px;
-      animation: float 3s infinite ease-in-out;
-    }
+  @keyframes pulseAnimation {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 1; }
+  }
 
-    @keyframes float {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
-      100% { transform: translateY(0); }
-    }
+  #ageCounter {
+    font-size: 1.5em;
+    color: #333;
+    margin-top: 20px;
+  }
 
-    .msg {
-      font-size: 24px;
-      color: yellow;
-      margin-top: 20px;
-      text-shadow: 1px 1px 3px black;
-    }
-  </style>
+  /* Falling emojis */
+  .falling {
+    position: fixed;
+    top: -50px;
+    font-size: 24px;
+    animation-name: fall;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    pointer-events: none;
+  }
+
+  @keyframes fall {
+    0% { transform: translateY(-50px) rotate(0deg); }
+    100% { transform: translateY(110vh) rotate(360deg); }
+  }
+</style>
 </head>
 <body>
 
-  <h1>🎉 Happy Birthday! 🎉</h1>
+<div class="centered">
+  <div class="pulse">Happy Birthday Mummaaaa ❤️</div>
+  <div id="ageCounter"></div>
+</div>
 
-  <img id="cake" src="cake.png" alt="Birthday Cake">
+<!-- Falling emojis -->
+<script>
+const symbols = ["❤️","💖","💗","🩷","💐","🎉","🌹"];
+function createSymbol() {
+  const sym = document.createElement('div');
+  sym.className = 'falling';
+  sym.style.left = Math.random() * window.innerWidth + 'px';
+  sym.style.fontSize = (20 + Math.random() * 30) + 'px';
+  sym.style.animationDuration = (5 + Math.random() * 5) + 's';
+  sym.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+  document.body.appendChild(sym);
+  setTimeout(() => sym.remove(), 10000);
+}
+setInterval(createSymbol, 150);
+</script>
 
-  <div class="msg">Tap anywhere to start the music 🎵</div>
+<!-- Accurate age counter -->
+<script>
+function updateAge() {
+  const birthDate = new Date("1982-11-29T00:00:00");
+  const now = new Date();
 
-  <!-- 🔊 AUDIO PART (THIS WILL PLAY ON TAP) -->
-  <audio id="bgMusic" preload="auto">
-    <source src="happy_birthday.mp3" type="audio/mpeg">
-  </audio>
+  let years = now.getFullYear() - birthDate.getFullYear();
+  let months = now.getMonth() - birthDate.getMonth();
+  let days = now.getDate() - birthDate.getDate();
+  let hours = now.getHours() - birthDate.getHours();
+  let minutes = now.getMinutes() - birthDate.getMinutes();
+  let seconds = now.getSeconds() - birthDate.getSeconds();
 
-  <script>
-    document.addEventListener("click", function() {
-      const audio = document.getElementById("bgMusic");
-      audio.volume = 1.0;
-      if (audio.paused) audio.play();
-    });
-  </script>
+  if (seconds < 0) { seconds += 60; minutes--; }
+  if (minutes < 0) { minutes += 60; hours--; }
+  if (hours < 0) { hours += 24; days--; }
+  if (days < 0) {
+      const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+      days += prevMonth.getDate();
+      months--;
+  }
+  if (months < 0) { months += 12; years--; }
+
+  document.getElementById('ageCounter').textContent = 
+      `Meghna, You are ${years} years ${months} months ${days} days ${hours} hours ${minutes} minutes ${seconds} seconds ❤️`;
+}
+setInterval(updateAge, 1000);
+updateAge();
+</script>
+
+<!-- Background slow piano "Happy Birthday" -->
+<audio id="bgMusic" autoplay loop>
+  <source src="https://cdn.jsdelivr.net/gh/itsgreeshma/happy-birthday-piano/happybirthday.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+<script>
+document.body.addEventListener('click', function() {
+  const audio = document.getElementById('bgMusic');
+  if (audio.paused) audio.play();
+});
+</script>
 
 </body>
 </html>
