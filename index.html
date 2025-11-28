@@ -142,11 +142,10 @@ const messages = [
   "You Shine Bright 🌟",
   "You are my hope ❤️",
   "Love you Maa 💛",
-  "You're Precious Maa 💐"
+  "You're Precious Maa 💐",
   "Your are my best friend 🌟",
   "Anything for youu ❤️",
   "Love you Maaa❤️",
-
 ];
 
 function showMessage() {
@@ -165,6 +164,19 @@ function showMessage() {
 setInterval(showMessage, 2000);
 </script>
 
+<!-- Background Song on Click -->
+<audio id="bgMusic">
+  <source src="https://raw.githubusercontent.com/pothkangreeshma30/Mumma/main/happy_birthday.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+<script>
+document.body.addEventListener('click', function playMusic() {
+    const audio = document.getElementById('bgMusic');
+    audio.play();
+    document.body.removeEventListener('click', playMusic);
+});
+</script>
+
 </body>
 </html>
-
