@@ -77,7 +77,7 @@ setInterval(createSymbol, 300);
 <!-- Age counter -->
 <script>
 function updateAge() {
-  const birthDate = new Date("1982-11-29T12:00:00");
+  const birthDate = new Date("1982-11-29T00:00:00");
   const now = new Date();
   let diff = now - birthDate;
 
@@ -106,9 +106,10 @@ setInterval(updateAge, 1000);
 updateAge();
 </script>
 
-<!-- Background music -->
+<!-- Background piano song -->
 <audio autoplay loop>
-  <source src="happy_birthday.mp3" type="audio/mpeg">
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
 </audio>
 
 </body>
