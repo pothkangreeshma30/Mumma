@@ -1,109 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Happy Birthday</title>
-<style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday</title>
+
+  <style>
     body {
-        background-color: black;
-        margin: 0;
-        overflow: hidden;
-        position: relative;
-        height: 100vh;
-        font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: url('bg.jpg') no-repeat center center/cover;
+      text-align: center;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
     }
 
-    /* Center Text */
     h1 {
-        color: gold;
-        font-size: 50px;
-        text-align: center;
-        margin-top: 100px;
-        z-index: 10;
-        position: relative;
+      margin-top: 50px;
+      font-size: 40px;
+      color: #fff;
+      text-shadow: 2px 2px 5px black;
     }
 
-    /* Falling Emojis */
-    .emoji {
-        position: absolute;
-        top: -50px;
-        font-size: 40px;
-        animation: fall linear infinite;
+    #cake {
+      width: 250px;
+      margin-top: 30px;
+      animation: float 3s infinite ease-in-out;
     }
 
-    @keyframes fall {
-        to { transform: translateY(110vh); }
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+      100% { transform: translateY(0); }
     }
 
-    /* Random popup message */
-    .popup {
-        position: absolute;
-        color: #ffccff;
-        background: rgba(255, 255, 255, 0.2);
-        padding: 10px 20px;
-        border-radius: 10px;
-        font-size: 20px;
-        backdrop-filter: blur(5px);
-        animation: fadeOut 5s forwards;
+    .msg {
+      font-size: 24px;
+      color: yellow;
+      margin-top: 20px;
+      text-shadow: 1px 1px 3px black;
     }
-
-    @keyframes fadeOut {
-        0% { opacity: 1; transform: scale(1); }
-        80% { opacity: 1; }
-        100% { opacity: 0; transform: scale(0.7); }
-    }
-</style>
+  </style>
 </head>
 <body>
 
-<h1>🎉 Happy Birthday Mumma 🎉</h1>
+  <h1>🎉 Happy Birthday! 🎉</h1>
 
-<script>
-// Falling Emojis
-const emojis = ["🎉", "💖", "✨", "🎂", "💝", "🦋", "🌸"];
+  <img id="cake" src="cake.png" alt="Birthday Cake">
 
-function createEmoji() {
-    const e = document.createElement("div");
-    e.classList.add("emoji");
-    e.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-    e.style.left = Math.random() * 100 + "vw";
-    e.style.animationDuration = (Math.random() * 3 + 2) + "s";
-    document.body.appendChild(e);
+  <div class="msg">Tap anywhere to start the music 🎵</div>
 
-    setTimeout(() => e.remove(), 4000);
-}
-setInterval(createEmoji, 300);
+  <!-- 🔊 AUDIO PART (THIS WILL PLAY ON TAP) -->
+  <audio id="bgMusic" preload="auto">
+    <source src="happy_birthday.mp3" type="audio/mpeg">
+  </audio>
 
-// RANDOM POPUP MESSAGES
-const msgs = [
-    "Love your Smile 💖",
-    "You're the Best! 🌸",
-    "My World 💕",
-    "Your Laugh is Magic ✨",
-    "Cutest Person Ever 🦋",
-    "Stay Happy Always 💛",
-    "My Heart ❤️",
-    "You Shine Bright 🌟"
-];
-
-function showMessage() {
-    const msg = document.createElement("div");
-    msg.classList.add("popup");
-    msg.innerText = msgs[Math.floor(Math.random() * msgs.length)];
-
-    // Random position
-    msg.style.left = Math.random() * 70 + "vw";
-    msg.style.top = Math.random() * 70 + "vh";
-
-    document.body.appendChild(msg);
-
-    setTimeout(() => msg.remove(), 5000);
-}
-
-// show a new message every 2 seconds
-setInterval(showMessage, 2000);
-</script>
+  <script>
+    document.addEventListener("click", function() {
+      const audio = document.getElementById("bgMusic");
+      audio.volume = 1.0;
+      if (audio.paused) audio.play();
+    });
+  </script>
 
 </body>
 </html>
-
