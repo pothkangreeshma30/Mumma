@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Mummaaaa ❤️</title>
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: #fff0f5;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+  }
+
+  /* Center Message */
+  .centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+
+  .pulse {
+    font-size: 3em;
+    color: red;
+    font-weight: bold;
+    animation: pulseAnimation 1.5s infinite;
+  }
+
+  @keyframes pulseAnimation {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  #ageCounter {
+    font-size: 1.5em;
+    color: #333;
+    margin-top: 20px;
+  }
+
+  /* Falling emojis */
+  .falling {
+    position: fixed;
+    top: -50px;
+    font-size: 24px;
+    animation-name: fall;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    pointer-events: none;
+  }
+
+  @keyframes fall {
+    0% { transform: translateY(-50px) rotate(0deg); }
+    100% { transform: translateY(110vh) rotate(360deg); }
+  }
+
+  /* Popup sweet messages */
+  .popup {
+    position: absolute;
+    padding: 12px 20px;
+    background: rgba(255, 255, 255, 0.7);
+    color: #d1006c;
+    font-size: 20px;
+    border-radius: 12px;
+    font-weight: bold;
+    animation: fadeOut 5s forwards;
+    pointer-events: none;
+  }
+
+  @keyframes fadeOut {
+    0% { opacity: 1; transform: scale(1); }
+    100% { opacity: 0; transform: scale(0.5); }
+  }
+</style>
+</head>
+<body>
+
+<div class="centered">
+  <div class="pulse">Happy Birthday Mummaaaa ❤️</div>
+  <div id="ageCounter"></div>
+</div>
+
+<!-- Falling Emojis -->
+<script>
+const symbols = ["❤️","💖","💗","🩷","💐","🎉","🌹"];
+function createSymbol() {
+  const sym = document.createElement('div');
+  sym.className = 'falling';
+  sym.style.left = Math.random() * window.innerWidth + 'px';
+  sym.style.fontSize = (20 + Math.random() * 30) + 'px';
+  sym.style.animationDuration = (5 + Math.random() * 5) + 's';
+  sym.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+  document.body.appendChild(sym);
+  setTimeout(() => sym.remove(), 10000);
+}
+setInterval(createSymbol, 150);
+</script>
+
+<!-- Accurate Age Counter -->
+<script>
+function updateAge() {
+  const birthDate = new Date("1982-11-29T00:00:00");
+  const now = new Date();
+
+  let years = now.getFullYear() - birthDate.getFullYear();
+  let months = now.getMonth() - birthDate.getMonth();
+  let days = now.getDate() - birthDate.getDate();
+  let hours = now.getHours() - birthDate.getHours();
+  let minutes = now.getMinutes() - birthDate.getMinutes();
+  let seconds = now.getSeconds() - birthDate.getSeconds();
+
+  if (seconds < 0) { seconds += 60; minutes--; }
+  if (minutes < 0) { minutes += 60; hours--; }
+  if (hours < 0) { hours += 24; days--; }
+  if (days < 0) {
+      const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+      days += prevMonth.getDate();
+      months--;
+  }
+  if (months < 0) { months += 12; years--; }
+
+  document.getElementById('ageCounter').textContent =
+      `Meghna, You are ${years} years ${months} months ${days} days ${hours} hours ${minutes} minutes ${seconds} seconds ❤️`;
+}
+setInterval(updateAge, 1000);
+updateAge();
+</script>
+
+<!-- Popup Random Sweet Messages -->
+<script>
+const messages = [
+  "Love your Smile 💖",
+  "You're the Best Mumma 🌸",
+  "You Make My World Beautiful ❤️",
+  "Your Laugh is Magic ✨",
+  "My Favourite Person 💕",
+  "Cutest Ever 🩷",
+  "You Shine Bright 🌟",
+  "My Heart Belongs to You ❤️",
+  "Stay Happy Always 💛",
+  "You're Precious Mumma 💐"
+];
+
+function showMessage() {
+  const msg = document.createElement("div");
+  msg.classList.add("popup");
+  msg.textContent = messages[Math.floor(Math.random() * messages.length)];
+
+  msg.style.left = Math.random() * 70 + "vw";
+  msg.style.top = Math.random() * 70 + "vh";
+
+  document.body.appendChild(msg);
+
+  setTimeout(() => msg.remove(), 5000);
+}
+
+setInterval(showMessage, 2000);
+</script>
+
+</body>
+</html>
