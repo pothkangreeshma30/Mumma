@@ -1,104 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday Mumma ❤️</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday</title>
 
-<style>
+  <style>
     body {
-        margin: 0;
-        padding: 0;
-        background: #fff0f5;
-        font-family: Arial, sans-serif;
-        text-align: center;
-        overflow: hidden;
+      margin: 0;
+      padding: 0;
+      background: url('bg.jpg') no-repeat center center/cover;
+      text-align: center;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
     }
 
-    .title {
-        font-size: 2.5em;
-        color: red;
-        font-weight: bold;
-        margin-top: 20px;
+    h1 {
+      margin-top: 50px;
+      font-size: 40px;
+      color: #fff;
+      text-shadow: 2px 2px 5px black;
     }
 
-    #ageCounter {
-        font-size: 1.3em;
-        margin-top: 10px;
-        color: #444;
+    #cake {
+      width: 250px;
+      margin-top: 30px;
+      animation: float 3s infinite ease-in-out;
     }
 
-    .fall {
-        position: fixed;
-        top: -50px;
-        animation: fallAnim linear infinite;
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+      100% { transform: translateY(0); }
     }
 
-    @keyframes fallAnim {
-        0% { transform: translateY(-50px) rotate(0deg); }
-        100% { transform: translateY(110vh) rotate(360deg); }
+    .msg {
+      font-size: 24px;
+      color: yellow;
+      margin-top: 20px;
+      text-shadow: 1px 1px 3px black;
     }
-</style>
+  </style>
 </head>
-
 <body>
 
-<div class="title">Happy Birthday Mumma ❤️</div>
-<div id="ageCounter"></div>
+  <h1>🎉 Happy Birthday! 🎉</h1>
 
-<script>
-// Falling emojis
-const emojis = ["❤️","💗","💖","🩷","💐","🎉","✨","🌸"];
-function dropEmoji() {
-    const e = document.createElement("div");
-    e.className = "fall";
-    e.style.left = Math.random() * window.innerWidth + "px";
-    e.style.fontSize = (25 + Math.random()*25) + "px";
-    e.style.animationDuration = (4 + Math.random()*3) + "s";
-    e.textContent = emojis[Math.floor(Math.random()*emojis.length)];
-    document.body.appendChild(e);
-    setTimeout(() => e.remove(), 8000);
-}
-setInterval(dropEmoji, 200);
+  <img id="cake" src="cake.png" alt="Birthday Cake">
 
-// Age counter
-function updateAge() {
-    const dob = new Date("1982-11-29T00:00:00");
-    const now = new Date();
+  <div class="msg">Tap anywhere to start the music 🎵</div>
 
-    let years = now.getFullYear() - dob.getFullYear();
-    let months = now.getMonth() - dob.getMonth();
-    let days = now.getDate() - dob.getDate();
-    let hours = now.getHours() - dob.getHours();
-    let minutes = now.getMinutes() - dob.getMinutes();
-    let seconds = now.getSeconds() - dob.getSeconds();
+  <!-- 🔊 AUDIO PART (THIS WILL PLAY ON TAP) -->
+  <audio id="bgMusic" preload="auto">
+    <source src="happy_birthday.mp3" type="audio/mpeg">
+  </audio>
 
-    if (seconds < 0) { seconds += 60; minutes--; }
-    if (minutes < 0) { minutes += 60; hours--; }
-    if (hours < 0) { hours += 24; days--; }
-    if (days < 0) {
-        const prevMonthDays = new Date(now.getFullYear(), now.getMonth(), 0).getDate();
-        days += prevMonthDays;
-        months--;
-    }
-    if (months < 0) { months += 12; years--; }
-
-    document.getElementById("ageCounter").textContent =
-        `Meghna, you are ${years} years, ${months} months, ${days} days, ${hours} hrs, ${minutes} mins, ${seconds} secs ❤️`;
-}
-
-setInterval(updateAge, 1000);
-updateAge();
-</script>
-
-<!-- Your uploaded audio file -->
-<audio id="song" src="happy_birthday.mp3"></audio>
-
-<script>
-document.body.addEventListener("click", () => {
-    document.getElementById("song").play();
-});
-</script>
+  <script>
+    document.addEventListener("click", function() {
+      const audio = document.getElementById("bgMusic");
+      audio.volume = 1.0;
+      if (audio.paused) audio.play();
+    });
+  </script>
 
 </body>
 </html>
