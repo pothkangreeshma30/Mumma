@@ -5,52 +5,52 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Happy Birthday Mummaaaa ❤️</title>
 <style>
-  body {
-    margin: 0;
-    padding: 0;
-    background: #fff0f5;
-    overflow-x: hidden;
-    font-family: Arial, sans-serif;
-    text-align: center;
-  }
+  body {
+    margin: 0;
+    padding: 0;
+    background: #fff0f5;
+    overflow-x: hidden;
+    font-family: Arial, sans-serif;
+    text-align: center;
+  }
 
-  /* Pulsing text */
-  .pulse {
-    font-size: 2.5em;
-    color: red;
-    font-weight: bold;
-    text-align: center;
-    margin-top: 20px;
-    animation: pulseAnimation 1.5s infinite;
-  }
+  /* Pulsing text */
+  .pulse {
+    font-size: 2.5em;
+    color: red;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+    animation: pulseAnimation 1.5s infinite;
+  }
 
-  @keyframes pulseAnimation {
-    0% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.2); opacity: 0.7; }
-    100% { transform: scale(1); opacity: 1; }
-  }
+  @keyframes pulseAnimation {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 1; }
+  }
 
-  /* Age counter text */
-  #ageCounter {
-    font-size: 1.5em;
-    color: #333;
-    margin-top: 20px;
-  }
+  /* Age counter text */
+  #ageCounter {
+    font-size: 1.5em;
+    color: #333;
+    margin-top: 20px;
+  }
 
-  /* Falling hearts and flowers */
-  .falling {
-    position: fixed;
-    top: -50px;
-    font-size: 24px;
-    animation-name: fall;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-  }
+  /* Falling hearts and flowers */
+  .falling {
+    position: fixed;
+    top: -50px;
+    font-size: 24px;
+    animation-name: fall;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
 
-  @keyframes fall {
-    0% { transform: translateY(-50px) rotate(0deg); }
-    100% { transform: translateY(110vh) rotate(360deg); }
-  }
+  @keyframes fall {
+    0% { transform: translateY(-50px) rotate(0deg); }
+    100% { transform: translateY(110vh) rotate(360deg); }
+  }
 </style>
 </head>
 <body>
@@ -60,46 +60,58 @@
 
 <!-- Falling hearts & flowers -->
 <script>
-const symbols = ["❤️", "🌹", "💖"];
+const symbols = ["❤️", "💗", "💖","🩷", "💐", "🎉"];
 function createSymbol() {
-  const sym = document.createElement('div');
-  sym.className = 'falling';
-  sym.style.left = Math.random() * window.innerWidth + 'px';
-  sym.style.fontSize = (20 + Math.random() * 30) + 'px';
-  sym.style.animationDuration = (5 + Math.random() * 5) + 's';
-  sym.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-  document.body.appendChild(sym);
-  setTimeout(() => sym.remove(), 10000);
+  const sym = document.createElement('div');
+  sym.className = 'falling';
+  sym.style.left = Math.random() * window.innerWidth + 'px';
+  sym.style.fontSize = (20 + Math.random() * 30) + 'px';
+  sym.style.animationDuration = (5 + Math.random() * 5) + 's';
+  sym.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+  document.body.appendChild(sym);
+  setTimeout(() => sym.remove(), 10000);
 }
 setInterval(createSymbol, 300);
 </script>
 
-<!-- Age counter -->
+<!-- Accurate Age Counter -->
 <script>
 function updateAge() {
-  const birthDate = new Date("1982-11-29T00:00:00");
-  const now = new Date();
-  let diff = now - birthDate;
+    const birthDate = new Date("1982-11-29T00:00:00");
+    const now = new Date();
 
-  const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
-  diff -= years * (1000 * 60 * 60 * 24 * 365.25);
+    let years = now.getFullYear() - birthDate.getFullYear();
+    let months = now.getMonth() - birthDate.getMonth();
+    let days = now.getDate() - birthDate.getDate();
+    let hours = now.getHours() - birthDate.getHours();
+    let minutes = now.getMinutes() - birthDate.getMinutes();
+    let seconds = now.getSeconds() - birthDate.getSeconds();
 
-  const months = Math.floor(diff / (1000 * 60 * 60 * 24 * 30.44));
-  diff -= months * (1000 * 60 * 60 * 24 * 30.44);
+    // Adjust for negatives
+    if (seconds < 0) {
+        seconds += 60;
+        minutes--;
+    }
+    if (minutes < 0) {
+        minutes += 60;
+        hours--;
+    }
+    if (hours < 0) {
+        hours += 24;
+        days--;
+    }
+    if (days < 0) {
+        const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+        days += prevMonth.getDate();
+        months--;
+    }
+    if (months < 0) {
+        months += 12;
+        years--;
+    }
 
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  diff -= days * (1000 * 60 * 60 * 24);
-
-  const hours = Math.floor(diff / (1000 * 60 * 60));
-  diff -= hours * (1000 * 60 * 60);
-
-  const minutes = Math.floor(diff / (1000 * 60));
-  diff -= minutes * (1000 * 60);
-
-  const seconds = Math.floor(diff / 1000);
-
-  document.getElementById('ageCounter').textContent = 
-    `Meghna, You are ${years} years ${months} months ${days} days ${hours} hours ${minutes} minutes ${seconds} seconds ❤️`;
+    document.getElementById('ageCounter').textContent = 
+        `Meghna, You are ${years} years ${months} months ${days} days ${hours} hours ${minutes} minutes ${seconds} seconds ❤️`;
 }
 
 setInterval(updateAge, 1000);
@@ -108,8 +120,8 @@ updateAge();
 
 <!-- Background piano song -->
 <audio autoplay loop>
-  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
 </audio>
 
 </body>
