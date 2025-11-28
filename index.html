@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday Mummaaaa ❤️</title>
+<title>Happy Birthday Mumma ❤️</title>
 
 <style>
     body {
@@ -15,18 +15,11 @@
         overflow: hidden;
     }
 
-    .pulseText {
+    .title {
         font-size: 2.5em;
         color: red;
         font-weight: bold;
         margin-top: 20px;
-        animation: pulse 1.3s infinite;
-    }
-
-    @keyframes pulse {
-        0% { transform: scale(1); opacity: 1; }
-        50% { transform: scale(1.2); opacity: 0.8; }
-        100% { transform: scale(1); opacity: 1; }
     }
 
     #ageCounter {
@@ -38,7 +31,6 @@
     .fall {
         position: fixed;
         top: -50px;
-        font-size: 25px;
         animation: fallAnim linear infinite;
     }
 
@@ -51,23 +43,23 @@
 
 <body>
 
-<div class="pulseText">Happy Birthday Mummaaaa ❤️</div>
+<div class="title">Happy Birthday Mumma ❤️</div>
 <div id="ageCounter"></div>
 
 <script>
 // Falling emojis
-const em = ["❤️","💗","💖","🩷","💐","🎉","✨","🌸"];
-function drop() {
-    const d = document.createElement("div");
-    d.className = "fall";
-    d.style.left = Math.random() * window.innerWidth + "px";
-    d.style.fontSize = (20 + Math.random()*25) + "px";
-    d.style.animationDuration = (4 + Math.random()*4) + "s";
-    d.textContent = em[Math.floor(Math.random()*em.length)];
-    document.body.appendChild(d);
-    setTimeout(()=>d.remove(), 9000);
+const emojis = ["❤️","💗","💖","🩷","💐","🎉","✨","🌸"];
+function dropEmoji() {
+    const e = document.createElement("div");
+    e.className = "fall";
+    e.style.left = Math.random() * window.innerWidth + "px";
+    e.style.fontSize = (25 + Math.random()*25) + "px";
+    e.style.animationDuration = (4 + Math.random()*3) + "s";
+    e.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+    document.body.appendChild(e);
+    setTimeout(() => e.remove(), 8000);
 }
-setInterval(drop, 250);
+setInterval(dropEmoji, 200);
 
 // Age counter
 function updateAge() {
@@ -78,33 +70,33 @@ function updateAge() {
     let months = now.getMonth() - dob.getMonth();
     let days = now.getDate() - dob.getDate();
     let hours = now.getHours() - dob.getHours();
-    let mins = now.getMinutes() - dob.getMinutes();
-    let secs = now.getSeconds() - dob.getSeconds();
+    let minutes = now.getMinutes() - dob.getMinutes();
+    let seconds = now.getSeconds() - dob.getSeconds();
 
-    if (secs < 0) { secs += 60; mins--; }
-    if (mins < 0) { mins += 60; hours--; }
+    if (seconds < 0) { seconds += 60; minutes--; }
+    if (minutes < 0) { minutes += 60; hours--; }
     if (hours < 0) { hours += 24; days--; }
-    if (days < 0) { 
-        const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0).getDate();
-        days += prevMonth; months--; 
+    if (days < 0) {
+        const prevMonthDays = new Date(now.getFullYear(), now.getMonth(), 0).getDate();
+        days += prevMonthDays;
+        months--;
     }
     if (months < 0) { months += 12; years--; }
 
     document.getElementById("ageCounter").textContent =
-        `Meghna, you are ${years} years, ${months} months, ${days} days, ${hours} hrs, ${mins} mins, ${secs} secs ❤️`;
+        `Meghna, you are ${years} years, ${months} months, ${days} days, ${hours} hrs, ${minutes} mins, ${seconds} secs ❤️`;
 }
+
 setInterval(updateAge, 1000);
 updateAge();
 </script>
 
-<!-- Your audio file -->
+<!-- Your uploaded audio file -->
 <audio id="song" src="happy_birthday.mp3"></audio>
 
 <script>
-// Play song on click (required by browser autoplay rules)
-document.body.addEventListener("click", function() {
-    const song = document.getElementById("song");
-    song.play();
+document.body.addEventListener("click", () => {
+    document.getElementById("song").play();
 });
 </script>
 
