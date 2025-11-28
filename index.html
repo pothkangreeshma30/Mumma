@@ -5,21 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Happy Birthday Mummaaaa ❤️</title>
 <style>
-  body {
+  html, body {
     margin: 0;
     padding: 0;
+    height: 100%;
     background: #fff0f5;
-    overflow-x: hidden;
+    overflow: hidden;
     font-family: Arial, sans-serif;
+  }
+
+  /* Centered container */
+  .centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     text-align: center;
   }
 
-  /* Pulsing text */
   .pulse {
     font-size: 3em;
     color: red;
     font-weight: bold;
-    margin-top: 20px;
     animation: pulseAnimation 1.5s infinite;
   }
 
@@ -29,7 +36,6 @@
     100% { transform: scale(1); opacity: 1; }
   }
 
-  /* Age counter text */
   #ageCounter {
     font-size: 1.5em;
     color: #333;
@@ -44,6 +50,7 @@
     animation-name: fall;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
+    pointer-events: none;
   }
 
   @keyframes fall {
@@ -54,8 +61,10 @@
 </head>
 <body>
 
-<div class="pulse">Happy Birthday Mummaaaa ❤️</div>
-<div id="ageCounter"></div>
+<div class="centered">
+  <div class="pulse">Happy Birthday Mummaaaa ❤️</div>
+  <div id="ageCounter"></div>
+</div>
 
 <!-- Falling emojis -->
 <script>
@@ -70,34 +79,34 @@ function createSymbol() {
   document.body.appendChild(sym);
   setTimeout(() => sym.remove(), 10000);
 }
-setInterval(createSymbol, 200);
+setInterval(createSymbol, 150);
 </script>
 
 <!-- Accurate age counter -->
 <script>
 function updateAge() {
-    const birthDate = new Date("1982-11-29T00:00:00");
-    const now = new Date();
+  const birthDate = new Date("1982-11-29T00:00:00");
+  const now = new Date();
 
-    let years = now.getFullYear() - birthDate.getFullYear();
-    let months = now.getMonth() - birthDate.getMonth();
-    let days = now.getDate() - birthDate.getDate();
-    let hours = now.getHours() - birthDate.getHours();
-    let minutes = now.getMinutes() - birthDate.getMinutes();
-    let seconds = now.getSeconds() - birthDate.getSeconds();
+  let years = now.getFullYear() - birthDate.getFullYear();
+  let months = now.getMonth() - birthDate.getMonth();
+  let days = now.getDate() - birthDate.getDate();
+  let hours = now.getHours() - birthDate.getHours();
+  let minutes = now.getMinutes() - birthDate.getMinutes();
+  let seconds = now.getSeconds() - birthDate.getSeconds();
 
-    if (seconds < 0) { seconds += 60; minutes--; }
-    if (minutes < 0) { minutes += 60; hours--; }
-    if (hours < 0) { hours += 24; days--; }
-    if (days < 0) {
-        const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
-        days += prevMonth.getDate();
-        months--;
-    }
-    if (months < 0) { months += 12; years--; }
+  if (seconds < 0) { seconds += 60; minutes--; }
+  if (minutes < 0) { minutes += 60; hours--; }
+  if (hours < 0) { hours += 24; days--; }
+  if (days < 0) {
+      const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+      days += prevMonth.getDate();
+      months--;
+  }
+  if (months < 0) { months += 12; years--; }
 
-    document.getElementById('ageCounter').textContent = 
-        `Meghna, You are ${years} years ${months} months ${days} days ${hours} hours ${minutes} minutes ${seconds} seconds ❤️`;
+  document.getElementById('ageCounter').textContent = 
+      `Meghna, You are ${years} years ${months} months ${days} days ${hours} hours ${minutes} minutes ${seconds} seconds ❤️`;
 }
 setInterval(updateAge, 1000);
 updateAge();
